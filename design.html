@@ -1,0 +1,48 @@
+<html>
+<canvas id = "gameCanvas"></canvas>
+<script>
+var canvas;
+var canvasContext;
+var rotationSpeed = 0.01;
+var sAngle = 0;
+var eAngle = 1;
+  
+window.onload = function(){
+    canvas = document.getElementById('gameCanvas');
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvasContext = canvas.getContext('2d');
+  
+    colorRect(0,0, canvas.width/2 , canvas.height,'black');
+    colorRect(canvas.width/2,0, canvas.width/2 , canvas.height,'#e9103a');
+
+    setInterval(rotateEverything, 5);
+   
+}    
+
+function rotateEverything(){
+        colorArc(canvas.width/2,canvas.height/2,170,sAngle,eAngle,'black',false);
+        colorArc(canvas.width/2,canvas.height/2,155,sAngle,eAngle,'#e9103a',false);
+        colorArc(canvas.width/2,canvas.height/2,170,sAngle,eAngle,'#e9103a',true);
+        colorArc(canvas.width/2,canvas.height/2,155,sAngle,eAngle,'black',true);
+        sAngle += rotationSpeed;
+        eAngle += rotationSpeed;
+    
+}
+    
+
+ function colorRect(leftX,topY,width,height,drawColor){
+    canvasContext.fillStyle = drawColor;
+    canvasContext.fillRect(leftX,topY,width,height);
+}
+    
+function colorArc(centreX, centreY, radius, sAngle, eAngle, drawColor, direction){
+    canvasContext.fillStyle = drawColor;
+    canvasContext.beginPath();
+    canvasContext.arc(centreX, centreY, radius,sAngle*Math.PI, eAngle*Math.PI, direction);
+    canvasContext.fill();
+}
+
+</script>
+
+</html>
